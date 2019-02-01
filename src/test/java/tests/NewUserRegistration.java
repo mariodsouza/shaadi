@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -27,7 +28,7 @@ public class NewUserRegistration {
 	@BeforeClass
     public void setUp() throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(MobileCapabilityType.APP, "C:\\Users\\dsouzam2\\Desktop\\shaadi.com\\shaadiDebug_Shaadi_02-Jan-2019_05_11-1.apk");
+		capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/shaadiDebug_Shaadi_02-Jan-2019_05_11-1.apk");
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Samsung");
         capabilities.setCapability("appWaitPackage", "com.shaadi.android");
@@ -43,6 +44,7 @@ public class NewUserRegistration {
     	wait.until(ExpectedConditions.attributeToBe(register, "clickable", "true"));
     	register.click();
     	
+    	//switch to webview context
     	Set<String> contextNames = driver.getContextHandles();
     	for (String wv : contextNames){
     		if(wv.contains("WEBVIEW")) {
@@ -75,5 +77,10 @@ public class NewUserRegistration {
     	
 //    	driver.findElement(By.id("sign-up-btn")).click();
 	}
+	
+	@AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
 
 }
