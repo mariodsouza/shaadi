@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class NewUserRegistration {
@@ -31,8 +32,8 @@ public class NewUserRegistration {
 		capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/shaadiDebug_Shaadi_02-Jan-2019_05_11-1.apk");
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Samsung");
-        capabilities.setCapability("appWaitPackage", "com.shaadi.android");
-        capabilities.setCapability("appWaitActivity", "com.shaadi.android.ui.achivement_splash.SplashActivity");
+        capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.shaadi.android");
+        capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, "com.shaadi.android.ui.achivement_splash.SplashActivity");
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
