@@ -15,13 +15,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import forms.RegistrationPage;
+import forms.SplashScreen;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-public class NewUserRegistration {
+public class NewUserRegistration_PageObject {
 	
 	public AppiumDriver<MobileElement> driver;
     WebDriverWait wait;
@@ -40,43 +42,21 @@ public class NewUserRegistration {
 	
 	@Test
 	public void test1() {
-		wait = new WebDriverWait(driver, 30);
-    	WebElement register = driver.findElement(By.id("com.shaadi.android:id/registerfree"));
-    	wait.until(ExpectedConditions.attributeToBe(register, "clickable", "true"));
-    	register.click();
-    	
-    	//switch to webview context
-    	Set<String> contextNames = driver.getContextHandles();
-    	for (String wv : contextNames){
-    		if(wv.contains("WEBVIEW")) {
-    			driver.context(wv);
-        		break;
-    		}
-    	}
-    	
-    	driver.findElement(By.id("email")).sendKeys("testuser@gmail.com");
-    	driver.findElement(By.id("password1")).sendKeys("testuserpassword");
-    	
-    	new Select(driver.findElement(By.id("postedby"))).selectByValue("Self");
-    	
-    	driver.findElement(By.id("first_name")).sendKeys("First");
-    	driver.findElement(By.id("last_name")).sendKeys("Last");
-    	
-    	new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
-    	
-    	new Select(driver.findElement(By.id("day"))).selectByIndex(5); //select day as 05 
-    	
-    	new Select(driver.findElement(By.id("month"))).selectByIndex(1); //select month as Jan
-    	
-    	new Select(driver.findElement(By.id("year"))).selectByValue("1990");
-    	
-    	new Select(driver.findElement(By.id("community"))).selectByValue("Christian");
-    	
-    	new Select(driver.findElement(By.id("mother_tongue"))).selectByValue("English");
-    	
-    	new Select(driver.findElement(By.id("countryofresidence"))).selectByVisibleText("UAE");
-    	
-    	driver.findElement(By.id("sign-up-btn")).click();
+		SplashScreen splashScreen = new SplashScreen((AndroidDriver<MobileElement>) driver);
+		RegistrationPage registrationPage = splashScreen.clickSignUpFree();
+		registrationPage.enterEmail("pageobject@gmail.com");
+		registrationPage.enterPassword("password");
+		registrationPage.selectProfileFor("Self");
+		registrationPage.enterFirstName("Page");
+		registrationPage.enterLastName("Object");
+		registrationPage.selectGender("Male");
+		registrationPage.selectDay(10);
+		registrationPage.selectMonth(9);
+		registrationPage.selectYear("1980");
+		registrationPage.selectReligion("Christian");
+		registrationPage.selectMotherTongue("English");
+		registrationPage.selectLivingIn("UAE");
+		registrationPage.clickSubmit();
 	}
 	
 	@AfterClass

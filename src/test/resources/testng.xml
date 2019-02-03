@@ -6,12 +6,11 @@
       <class name="tests.NewUserRegistration">
         <methods>
           <include name="test1" />
-          <!-- <include name="openAdminPage" />
-          <include name="loginAsAdmin" />
-          <include name="navigateNewPost" />
-          <include name="writeBlogPost" />
-          <include name="publishBlogPost" />
-          <include name="verifyBlogPost" /> -->
+        </methods>
+      </class>
+      <class name="tests.NewUserRegistration_PageObject">
+        <methods>
+          <include name="test1" />
         </methods>
       </class>
     </classes>
