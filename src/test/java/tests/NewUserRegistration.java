@@ -75,7 +75,7 @@ public class NewUserRegistration {
     	
     	new Select(driver.findElement(By.id("countryofresidence"))).selectByVisibleText("UAE");
     	
-//    	driver.findElement(By.id("sign-up-btn")).click();
+    	driver.findElement(By.id("sign-up-btn")).click();
 	}
 	
 	@AfterClass
