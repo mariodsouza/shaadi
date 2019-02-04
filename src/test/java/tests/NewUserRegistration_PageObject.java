@@ -36,7 +36,7 @@ public class NewUserRegistration_PageObject {
 	}
 	
 	@Test
-	public void test1() {
+	public void test1() throws InterruptedException {
 		SplashScreen splashScreen = new SplashScreen((AndroidDriver<MobileElement>) driver);
 		RegistrationPage registrationPage = splashScreen.clickSignUpFree();
 		registrationPage.enterEmail("pageobject@gmail.com");

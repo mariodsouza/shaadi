@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,43 +40,55 @@ public class NewUserRegistration {
 	}
 	
 	@Test
-	public void test1() {
+	public void test1() throws InterruptedException {
 		wait = new WebDriverWait(driver, 30);
     	WebElement register = driver.findElement(By.id("com.shaadi.android:id/registerfree"));
     	wait.until(ExpectedConditions.attributeToBe(register, "clickable", "true"));
     	register.click();
+    	
+    	//wait for registration page to load
+    	int count = 0;
+    	try{
+    		while(driver.findElement(By.id("com.shaadi.android:id/pbLoader")).isDisplayed() && count<=30){
+        		System.out.println("Waiting for page to load..........");
+        		Thread.sleep(2000);
+        		count++;
+        	}
+    	} catch (NoSuchElementException e){
+    		System.out.println("Page loaded successfully");
+    	}
     	
     	//switch to webview context
     	Set<String> contextNames = driver.getContextHandles();
     	for (String wv : contextNames){
     		if(wv.contains("WEBVIEW")) {
     			driver.context(wv);
-        		break;
+    			break;
     		}
     	}
-    	
+
     	driver.findElement(By.id("email")).sendKeys("testuser@gmail.com");
     	driver.findElement(By.id("password1")).sendKeys("testuserpassword");
-    	
+
     	new Select(driver.findElement(By.id("postedby"))).selectByValue("Self");
-    	
+
     	driver.findElement(By.id("first_name")).sendKeys("First");
     	driver.findElement(By.id("last_name")).sendKeys("Last");
-    	
+
     	new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
-    	
+
     	new Select(driver.findElement(By.id("day"))).selectByIndex(5); //select day as 05 
-    	
+
     	new Select(driver.findElement(By.id("month"))).selectByIndex(1); //select month as Jan
-    	
+
     	new Select(driver.findElement(By.id("year"))).selectByValue("1990");
-    	
+
     	new Select(driver.findElement(By.id("community"))).selectByValue("Christian");
-    	
+
     	new Select(driver.findElement(By.id("mother_tongue"))).selectByValue("English");
-    	
+
     	new Select(driver.findElement(By.id("countryofresidence"))).selectByVisibleText("UAE");
-    	
+
     	driver.findElement(By.id("sign-up-btn")).click();
 	}
 	

@@ -2,6 +2,8 @@ package forms;
 
 import java.util.Set;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -12,7 +14,19 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class RegistrationPage {
 	
-	public RegistrationPage(AndroidDriver<MobileElement> driver) {
+	public RegistrationPage(AndroidDriver<MobileElement> driver) throws InterruptedException {
+		//wait for registration page to load
+    	int count = 0;
+    	try{
+    		while(driver.findElement(By.id("com.shaadi.android:id/pbLoader")).isDisplayed() && count<=30){
+        		System.out.println("Waiting for page to load..........");
+        		Thread.sleep(2000);
+        		count++;
+        	}
+    	} catch (NoSuchElementException e){
+    		System.out.println("Page loaded successfully");
+    	}
+		
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         //switch to webview context
         Set<String> contextNames = driver.getContextHandles();

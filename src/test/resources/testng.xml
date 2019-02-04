@@ -2,17 +2,17 @@
 <suite name="shaadi.com" verbose="10">
  
   <test name="Smoke" preserve-order="true">
-    <classes>
-      <class name="tests.NewUserRegistration">
-        <methods>
-          <include name="test1" />
-        </methods>
-      </class>
-      <class name="tests.NewUserRegistration_PageObject">
-        <methods>
-          <include name="test1" />
-        </methods>
-      </class>
-    </classes>
-  </test>
+	<classes>
+		<class name="tests.NewUserRegistration">
+			<methods>
+				<include name="test1" />
+			</methods>
+		</class>
+		<class name="tests.NewUserRegistration_PageObject">
+			<methods>
+				<include name="test1" />
+			</methods>
+		</class>
+	</classes>
+</test>
 </suite>
