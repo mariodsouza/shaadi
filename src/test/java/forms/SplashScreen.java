@@ -23,7 +23,7 @@ public class SplashScreen {
     @AndroidFindBy(id="com.shaadi.android:id/registerfree")
     private AndroidElement signUpFree;
     
-    public RegistrationPage clickSignUpFree() {
+    public RegistrationPage clickSignUpFree() throws InterruptedException {
     	wait = new WebDriverWait(driver, 30);
     	wait.until(ExpectedConditions.attributeToBe(signUpFree, "clickable", "true"));
     	signUpFree.click();

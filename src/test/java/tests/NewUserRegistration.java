@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,12 +52,24 @@ public class NewUserRegistration {
     	wait.until(ExpectedConditions.attributeToBe(register, "clickable", "true"));
     	register.click();
     	
+    	//wait for registration page to load
+    	int count = 0;
+    	try{
+    		while(driver.findElement(By.id("com.shaadi.android:id/pbLoader")).isDisplayed() && count<=30){
+        		System.out.println("Waiting for page to load..........");
+        		Thread.sleep(2000);
+        		count++;
+        	}
+    	} catch (NoSuchElementException e){
+    		System.out.println("Page loaded successfully");
+    	}
+    	
     	//switch to webview context
     	Set<String> contextNames = driver.getContextHandles();
     	for (String wv : contextNames){
     		if(wv.contains("WEBVIEW")) {
     			driver.context(wv);
-        		break;
+    			break;
     		}
     	}
 	}
